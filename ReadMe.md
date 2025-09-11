@@ -3,7 +3,7 @@
 
 ## 📖 Proje Hakkında
 
-Bu proje, Türksat stajım öncesinde hazırlanmış bir full-stack görev takip uygulamasıdır.
+Bu proje, full-stack görev takip uygulamasıdır.
 Amaç, React.js ve Spring Boot teknolojileri ile temel CRUD işlemlerini gerçekleştiren, PostgreSQL veritabanına bağlı bir web uygulaması geliştirmektir.
 
 
@@ -186,6 +186,6 @@ Tarayıcınızda `http://localhost:5173` adresine gidin.
 
 ## 📄 Lisans
 
-Bu proje eğitim amaçlı olarak oluşturulmuştur ve Türksat stajı ödev gereksinimlerini karşılamak üzere geliştirilmiştir.
+Bu proje eğitim amaçlı olarak oluşturulmuştur.
 
 ---
