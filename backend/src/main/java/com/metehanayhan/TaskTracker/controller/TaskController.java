@@ -3,6 +3,10 @@ import com.metehanayhan.TaskTracker.entity.Task;
 import com.metehanayhan.TaskTracker.service.TaskService;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
+import com.metehanayhan.TaskTracker.dto.CreateTaskRequestDTO;
+import com.metehanayhan.TaskTracker.dto.TaskResponseDTO;
+import com.metehanayhan.TaskTracker.mapper.TaskMapper;
+import com.metehanayhan.TaskTracker.dto.UpdateTaskRequestDTO;
 
 @RequestMapping("/api/tasks")
 @RestController
@@ -15,22 +19,22 @@ public class TaskController {
     }
 
     @GetMapping
-    public List<Task> getAllTasks() {
+    public List<TaskResponseDTO> getAllTasks() {
         return taskService.getAllTasks();
     }
 
     @GetMapping("/{id}")
-    public Task getTaskById(@PathVariable Long id) {
+    public TaskResponseDTO getTaskById(@PathVariable Long id) {
         return taskService.getTaskById(id);
     }
 
     @PostMapping
-    public Task createTask(@RequestBody Task task) {
-        return taskService.createTask(task);
+    public TaskResponseDTO createTask(@RequestBody CreateTaskRequestDTO taskRequest) {
+        return taskService.createTask(taskRequest);
     }
 
     @PutMapping("/{id}")
-    public Task updateTask(@PathVariable Long id, @RequestBody Task taskDetails) {
+    public TaskResponseDTO updateTask(@PathVariable Long id, @RequestBody UpdateTaskRequestDTO taskDetails) {
         return taskService.updateTask(id, taskDetails);
     }
 

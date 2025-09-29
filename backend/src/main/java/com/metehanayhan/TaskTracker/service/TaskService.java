@@ -4,6 +4,12 @@ import com.metehanayhan.TaskTracker.entity.Task;
 import com.metehanayhan.TaskTracker.repository.TaskRepository;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.stream.Collectors;
+
+import com.metehanayhan.TaskTracker.mapper.TaskMapper;
+import com.metehanayhan.TaskTracker.dto.TaskResponseDTO;
+import com.metehanayhan.TaskTracker.dto.CreateTaskRequestDTO;
+import com.metehanayhan.TaskTracker.dto.UpdateTaskRequestDTO;
 
 @Service
 public class TaskService {
@@ -15,29 +21,39 @@ public class TaskService {
     }
 
 
-    public List<Task> getAllTasks() {
-        return taskRepository.findAll();
+    public List<TaskResponseDTO> getAllTasks() {
+
+        List<Task> tasks = taskRepository.findAll();
+
+        return tasks.stream()
+                .map(TaskMapper::toDTO)
+                .collect(Collectors.toList());
     }
 
-    public Task getTaskById(Long id) {
-        return taskRepository.findById(id)
+    public TaskResponseDTO getTaskById(Long id) {
+
+        Task task = taskRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("ID'si " + id + " olan görev bulunamadı."));
+
+        return TaskMapper.toDTO(task);
     }
 
-    public Task createTask(Task task) {
-        return taskRepository.save(task);
+    public TaskResponseDTO createTask(CreateTaskRequestDTO requestDTO) {
+
+        Task newTask = TaskMapper.toTask(requestDTO);
+        Task savedTask = taskRepository.save(newTask);
+        return TaskMapper.toDTO(savedTask);
     }
 
-    public Task updateTask(Long id, Task taskDetails) {
-        // Önce mevcut görevi bulalım. Bulamazsa getTaskById zaten hata fırlatacak.
-        Task existingTask = getTaskById(id);
+    public TaskResponseDTO updateTask(Long id, UpdateTaskRequestDTO taskDetails) {
+        Task mevcutTask = taskRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("ID'si " + id + " olan görev bulunamadı."));
 
-        // Mevcut görevin alanlarını yeni detaylarla güncelleyelim.
-        existingTask.setTitle(taskDetails.getTitle());
-        existingTask.setCompleted(taskDetails.isCompleted());
+        // TaskMapper'ı kullanarak güncelleme yapıyoruz
+        Task updatedTask = TaskMapper.updateTaskFromDTO(mevcutTask, taskDetails);
+        updatedTask = taskRepository.save(updatedTask);
 
-        // Güncellenmiş nesneyi kaydedelim.
-        return taskRepository.save(existingTask);
+        return TaskMapper.toDTO(updatedTask);
     }
 
     public void deleteTask(Long id) {
