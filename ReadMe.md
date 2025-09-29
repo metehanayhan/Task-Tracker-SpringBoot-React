@@ -1,10 +1,11 @@
-# 📋 Task Tracker - Görev Takip Uygulaması
+# 📋 Türksat - Task Tracker
 
 
 ## 📖 Proje Hakkında
 
-Bu proje, full-stack görev takip uygulamasıdır.
-Amaç, React.js ve Spring Boot teknolojileri ile temel CRUD işlemlerini gerçekleştiren, PostgreSQL veritabanına bağlı bir web uygulaması geliştirmektir.
+Bu proje, Spring Boot ve React.js ile geliştirilmiş full-stack görev takip uygulamasıdır. Temel CRUD (Create, Read, Update, Delete) işlevselliğinin yanı sıra, Keycloak ile entegre edilerek merkezi bir kimlik doğrulama ve yetkilendirme katmanına sahiptir. Backend mimarisinde DTO (Data Transfer Object) ve MapStruct kullanılarak verimli ve güvenli bir veri transferi sağlanmıştır.
+
+Tüm altyapı servisleri (PostgreSQL ve Keycloak) tek bir Docker Compose komutuyla ayağa kaldırılacak şekilde tasarlanmıştır.
 
 
 ## 🎥 Postman
@@ -12,6 +13,15 @@ Amaç, React.js ve Spring Boot teknolojileri ile temel CRUD işlemlerini gerçek
 ### API Testleri
 
 <img src="images/postman-tests.png" alt="Postman" width="600px" />
+<img src="images/keycloak-tests.png" alt="keycloak" width="600px" />
+
+### Giriş
+
+<img src="images/giris.png" alt="keycloak" width="600px" />
+
+### Uygulama
+
+<img src="images/uygulama.png" alt="uygulama" width="600px" />
 
 
 ##  Özellikler
@@ -21,6 +31,8 @@ Amaç, React.js ve Spring Boot teknolojileri ile temel CRUD işlemlerini gerçek
 - ✅ **PostgreSQL Entegrasyonu**: Docker ile containerized veritabanı
 - ✅ **Modern React Frontend**: Component-based architechture
 - ✅ **API Integration**: Axios ile backend işlemleri
+- ✅ **DTO (Data Transfer Object)**: Backend'de DTO ve MapStruct ile optimize edilmiş ve güvenli veri transferi.
+- ✅ **Kimlik Doğrulama & Yetkilendirme**: Keycloak ile güvenli kullanıcı girişi ve rol bazlı API koruması.
 
 ##  Kullanılan Teknolojiler
 
@@ -31,6 +43,7 @@ Amaç, React.js ve Spring Boot teknolojileri ile temel CRUD işlemlerini gerçek
 - **JavaScript**
 - **CSS** - Styling
 - **Axios** - HTTP client for API calls
+- **@react-keycloak/web** - Keycloak Entegrasyon Kütüphanesi
 
 ### Backend
 

@@ -9,18 +9,29 @@ import {
   updateTask,
   deleteTask,
 } from "./services/taskService";
+import Navbar from "./components/Navbar";
+import { useKeycloak } from "@react-keycloak/web";
 
 function App() {
   const [tasks, setTasks] = useState([]);
+  const { keycloak, initialized } = useKeycloak();
 
   useEffect(() => {
-    fetchTasks();
-  }, []);
+    // SADECE VE SADECE Keycloak hazırsa VE kullanıcı giriş yapmışsa görevleri çek
+    if (initialized && keycloak.authenticated) {
+      fetchTasks();
+    }
+  }, [initialized, keycloak.authenticated]);
 
   // GET
   const fetchTasks = async () => {
-    const response = await getAllTasks();
-    setTasks(response.data);
+    try {
+      const response = await getAllTasks();
+      setTasks(response.data);
+    } catch (error) {
+      console.error("Görevler çekilemedi!", error);
+      // Burada kullanıcıya bir hata mesajı gösterebilirsin
+    }
   };
 
   // POST
@@ -52,6 +63,7 @@ function App() {
 
   return (
     <div className="app-container">
+      <Navbar />
       <Header />
 
       <TaskForm onAddTask={handleAddTask} />
